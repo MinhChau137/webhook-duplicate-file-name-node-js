@@ -5,7 +5,7 @@ FROM node:14
 WORKDIR /app
 
 # Copy package.json và cài đặt các phụ thuộc
-COPY package*.json ./
+COPY ../package*.json ./
 RUN npm install
 
 # Copy toàn bộ mã nguồn
