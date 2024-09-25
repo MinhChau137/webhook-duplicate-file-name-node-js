@@ -5,7 +5,7 @@ services:
     image: quay.io/minio/minio:latest
     container_name: minio-compose-node-js
     ports:
-      - "39000:9000"
+      - "9000:9000"
       - "39001:9001"  # MinIO Console
     volumes:
       - /mnt/disk1:/mnt/disk1
