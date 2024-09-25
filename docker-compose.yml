@@ -5,8 +5,8 @@ services:
     image: quay.io/minio/minio:latest
     container_name: minio-compose-node-js
     ports:
-      - "9000:9000"
-      - "9001:9001"  # MinIO Console
+      - "39000:9000"
+      - "39001:9001"  # MinIO Console
     volumes:
       - /mnt/disk1:/mnt/disk1
       - /mnt/disk2:/mnt/disk2
@@ -17,7 +17,7 @@ services:
       MINIO_ROOT_PASSWORD: "minioadminpassword"
     command: server /mnt/disk{1...4} --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "curl", "-f", "http://localhost:39000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -31,7 +31,7 @@ services:
   proxy-server:
     build: ./proxy-server
     ports:
-      - "8080:8080"
+      - "9001:8080"
     depends_on:
       - minio
 

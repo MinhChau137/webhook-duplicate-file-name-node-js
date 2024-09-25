@@ -4,7 +4,7 @@ const app = express();
 const port = 8080;
 
 // URL của MinIO Web
-const minioWebUrl = 'http://minio:9000'; // sử dụng tên service trong docker-compose
+const minioWebUrl = 'http://minio:39000'; // sử dụng tên service trong docker-compose
 
 // Proxy các yêu cầu đến MinIO và chỉnh sửa giao diện HTML
 app.use('/', proxy(minioWebUrl, {
@@ -15,7 +15,7 @@ app.use('/', proxy(minioWebUrl, {
             // Chèn mã JavaScript hiển thị alert
             html = html.replace('</body>', `
                 <script>
-                    const socket = new WebSocket('ws://localhost:3000');
+                    const socket = new WebSocket('ws://10.39.153.13:3000');
 
                     socket.onmessage = function(event) {
                         const alertMessage = event.data;
