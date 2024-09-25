@@ -2,15 +2,26 @@ version: '3.8'
 
 services:
   minio:
-    image: minio/minio
+    image: quay.io/minio/minio:latest
+    container_name: minio-compose-node-js
     ports:
       - "9000:9000"
+      - "9001:9001"  # MinIO Console
     volumes:
-      - minio-data:/data
+      - /mnt/disk1:/mnt/disk1
+      - /mnt/disk2:/mnt/disk2
+      - /mnt/disk3:/mnt/disk3
+      - /mnt/disk4:/mnt/disk4
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-    command: server /data
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadminpassword"
+    command: server /mnt/disk{1...4} --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
   
   webhook-server:
     build: ./webhook-server
