@@ -17,7 +17,7 @@ services:
       MINIO_ROOT_PASSWORD: "minioadminpassword"
     command: server /mnt/disk{1...4} --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:39000/minio/health/live"]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3

@@ -15,7 +15,7 @@ app.use('/', proxy(minioWebUrl, {
             // Chèn mã JavaScript hiển thị alert
             html = html.replace('</body>', `
                 <script>
-                    const socket = new WebSocket('ws://localhost:3000');
+                    const socket = new WebSocket('ws://10.39.153.13:3000');
 
                     socket.onmessage = function(event) {
                         const alertMessage = event.data;
