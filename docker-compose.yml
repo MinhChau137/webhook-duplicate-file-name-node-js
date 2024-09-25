@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: server /data
+  
+  webhook-server:
+    build: ./webhook-server
+    ports:
+      - "3001:3001"
+
+  proxy-server:
+    build: ./proxy-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - minio
+
+volumes:
+  minio-data:
